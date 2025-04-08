@@ -137,15 +137,10 @@ dmypy.json
 related_works/**/.pdf
 .vscode/
 .DS_Store
+data
 
 # saved models
 **/*.h5
-
-# Except essential models
-!pretrained/normalizer.h5
-!data/pretrained/denormalizer.h5
-!data/pretrained/mlp.h5
-
 
 #old stuff
 ._old/
