@@ -12,9 +12,9 @@ related_works/**/.pdf
 
 **/*.h5
 
-!**/pretrained/normalizer.h5
-!**/pretrained/denormalizer.h5
-!**/pretrained/mlp.h5
+!**/model_weights/normalizer.h5
+!**/model_weights/denormalizer.h5
+!**/model_weights/mlp.h5
 
 utils
 gui.py
