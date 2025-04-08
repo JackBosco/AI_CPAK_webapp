@@ -4,73 +4,47 @@
 
 ---
 
-## NEW: Mobile Site [LINK](https://cd23g723swvsaiowa6kmu6fn3u0xzmne.lambda-url.us-east-1.on.aws/)
+## NEW: Website Tool [LINK](https://cd23g723swvsaiowa6kmu6fn3u0xzmne.lambda-url.us-east-1.on.aws/)
 
 ## What is the Goal?
 
-Using machine learning techniques such as feature selection and data clustering, we hope to develop our understanding of knee alignment morphologies.
+This is a web application for the AI CPAK project https://github.com/JackBosco/AI_CPAK
 
 ## How do I use this?
 
+Visit the link above to use the web tool in your browser. 
+
 ![./screenshot.png](screenshot.png)
 
-If you just want to launch the graphical user interface (GUI), follow the 3-step guide below. Requires `python3.10`+.
+### Specifications
 
-1. `clone` and `cd` to the project directory
-   ```
-   git clone https://github.com/JackBosco/AI_CPAK/ && cd AI_CPAK
-   ```
-2. Make sure you have the right dependencies by running the command below. You only need to do this once.
-   ```
-   pip3 install -r requirements.txt
-   ```
-3. Launch the GUI
-   ```
-   python3 gui.py
-   ```
+We use FastAPI with python to convert the Desktop application to a web application + API.
+To access the api programatically use the endpoint <URL>/api/predict and submit the 'mpta', 'ldfa' fields like so:
+```json
+{
+  "httpMethod": "POST",
+  "path": "/api/predict",
+  "requestContext": {},
+  "version": "1.0",
+  "body": "{ \"mpta\": \"88.5\", \"ldfa\": \"85.2\" }"
+}
+``` 
 
-## Where is the data?
+Example Response:
+```json
+{
+  "statusCode": 200,
+  "headers": {
+    "content-length": "50",
+    "content-type": "application/json"
+  },
+  "multiValueHeaders": {},
+  "body": "{\"mpta\":89.68032464359646,\"ldfa\":89.4126282330112}",
+  "isBase64Encoded": false
+}
+```
 
-Due to compliance reasons, I cannot upload the datasheet to GitHub.
-However, if you have the `mako_data.xlsx` file, drop that in `raw`.
-
-### I have my own data. How do I reproduce the paper?
-
-1. `clone` and `cd` to the project directory
-   ```
-   git clone https://github.com/JackBosco/AI_CPAK/ && cd AI_CPAK
-   ```
-2. Make sure you have the right dependencies by running the command below. You only need to do this once.
-   ```
-   pip3 install -r requirements.txt
-   ```
-3. To treat the data, run the command below. This creates the treated spreadsheet `treated/morphologies.csv`. You only need to run this once.
-   ```
-   python3 treat_data.py
-   ```
-4. Visualize the treated data by running
-   ```
-   python3 data_viz.py
-   ```
-<!-- 5. Create a data clustering example (optional command line options are `nclusters <int>`, `bmi`, `age`, `FTR` for femoral transverse rotation, `sex`):
-   ```
-   python3 make_clusters.py
-   ``` -->
-5. Create and visualize a regression model for planning postop aHKA alignments
-   ```
-   python3 regression.py
-   ```
-
-### Config options
-
-Configure the date file locations in `config.py`:
- - `raw_path` is the path to the raw data
- - `treated_path` is the path to the treated data
- - `norm_path` is the path to the input normalizer
- - `de_norm_path` is the path to the output normalizer
- - `model_path` is the path to the pre-trained model
-
-## `gui.py` is the only file that will run if you don't supply the de-anonymized patient data yourself
-I cannot privide the files in this repo due to compliance reasons, but please reach out to me if you would like to run this on your own dataset.
+The webapp is deployed with AWS ECR through Docker, allowing for standardization of the development environment.
+The webpage is served through AWS Lambda function connected to the ECR container.
 
 linkedin: [linkedin.com/in/JackBosco](https://linkedin.com/in/JackBosco).
